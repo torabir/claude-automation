@@ -1,6 +1,6 @@
 # claude-automation
 
-**A real, daily-driven automation layer built on Claude Code — agentic pipelines with human gates, a security model, and conventions that keep it maintainable.**
+**A real, daily-driven automation layer built on Claude Code — agentic pipelines with human review where it matters, a security model, and conventions that keep it maintainable.**
 
 This repo documents a system I run every day: a personal workspace where Claude Code acts as an orchestration layer across **several pipelines in different domains** — content production, transcription and captioning, personal admin, outreach, marketing — all built on the same patterns. The deepest of them is an **AI content production pipeline** that turns research into publishable long-form video, with hard human approval gates at every irreversible step.
 
