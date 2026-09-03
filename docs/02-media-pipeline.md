@@ -48,7 +48,7 @@ Multiple channels run on the same pipeline through JSON config overlays on a def
 
 All external services sit behind provider interfaces in the core:
 
-- **LLM:** a subprocess call to `claude -p` (headless Claude Code). There is *no LLM SDK in the dependency tree*. The pipeline rides on an existing subscription, the model is swappable behind one interface, and the pipeline never touches an LLM API key.
+- **LLM:** a subprocess call to `claude -p` (headless Claude Code). There is *no LLM SDK in the dependency tree* — the application code is decoupled from any specific provider, the model is swappable behind one interface, and the pipeline never touches an LLM API key.
 - **TTS:** ElevenLabs with word-level timestamps — one call yields both narration audio and an SRT subtitle track.
 - **Visuals:** public-domain-first (NASA, Wikimedia) with per-source license handling; AI generation (Gemini stills, fal.ai video) as an explicitly-labeled source.
 - **Rendering:** Remotion (React-based video), driven by a shot plan produced from script structure.

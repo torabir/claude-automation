@@ -11,7 +11,7 @@ This repo documents a system I run every day: a personal workspace where Claude 
 Most "AI automation" demos are a prompt and a loop. The interesting problems show up when an agentic system runs *for real, every day*:
 
 - How do you stop an agent **before** the irreversible step (spending money, publishing, sending)?
-- How do you keep API keys and personal data **provably out of the model's reach**?
+- How do you keep API keys and personal data **out of the model's context**?
 - How do you hand over context between sessions **without re-sending your whole history**?
 - How do you make multi-stage pipelines **resumable, auditable, and honest** about what's AI-generated?
 
@@ -83,11 +83,11 @@ Reusable templates live in [`examples/`](examples/): a [security settings templa
 
 Claude Code (skills, permission rules, OS sandbox, `claude -p` headless as the only LLM entry point) · TypeScript + commander CLIs · zod-validated JSON state · ElevenLabs TTS with word timestamps · Remotion rendering · Gemini image generation · NASA & Wikimedia archival sources · fal.ai video generation.
 
-Notably absent from the dependencies: any LLM SDK. All model calls go through a provider interface that shells out to `claude -p`, so the pipelines ride on an existing subscription, stay vendor-swappable, and never handle an API key for the LLM at all.
+Notably absent from the dependencies: any LLM SDK. All model calls go through a provider interface that currently invokes `claude -p`, keeping the application code decoupled from any specific LLM SDK — vendor-swappable behind one interface, and the pipelines never handle an LLM API key at all.
 
 ## Honesty notes
 
-- Everything described here **runs today**; nothing is aspirational. Where a pattern is planned but not built, the docs say so.
+- Everything presented as implemented **runs today**. Planned components are explicitly marked as such.
 - AI-generated imagery in the pipeline output is **labeled as AI-generated** in the published metadata — it is never presented as authentic archival material.
 - This repo is a sanitized extraction: personal data, business figures, and channel identities are deliberately left out.
 
