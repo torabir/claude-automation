@@ -1,0 +1,48 @@
+# <Workspace name> — workspace router
+
+<One line: whose workspace this is and what Claude's role is — e.g. "Claude acts as a
+daily assistant layer ACROSS projects here, in addition to normal dev work in each one.">
+
+## Projects
+
+| Folder | What | Read first |
+|---|---|---|
+| `project-a/` | <one line> | `docs/progress.md` |
+| `project-b/` | <one line> | `docs/progress.md` |
+| `_archive/` | Dead projects — ignore | — |
+
+Convention: every project keeps `docs/progress.md` as the session handover — it gives
+correct current status without reading code.
+
+## Triggers (assistant layer)
+
+- **"good morning"** (or similar) → run the `daily-brief` skill immediately, without asking.
+- **"good evening" / "evening check"** → run the `evening-review` skill.
+- **"let's work on \<project\>"** → router: read the project's `CLAUDE.md`,
+  `docs/progress.md` and active `docs/todo.md`; summarize status in 2–3 lines
+  ("here's where we are, this is the next step"); continue under the project's own rules.
+- **Anything else:** answer directly. NEVER force the ritual — a plain question gets
+  a plain answer, not a morning routine.
+
+## Hard rules
+
+- <Ownership boundaries: files Claude may read but never edit unprompted.>
+- <Privacy boundaries: what must never be stored or displayed by the tooling.>
+- Secrets live ONLY in `.env` (gitignored) or `secrets/` — never in code, chat, or
+  files with other names. `.claude/settings.json` enforces this with deny rules + sandbox.
+- If a key ever lands in the wrong place: rotate it at the provider, don't just delete the file.
+- Tone: short, precise, subtly motivating. No nagging, no guilt over unfinished items.
+
+## Requires user confirmation
+
+- git push / anything that publishes
+- anything costing money beyond small test calls
+- deleting projects or data
+
+## Token discipline
+
+- New Claude session per work session/project — `progress.md` is the handover.
+  Long context is re-sent every message and is the biggest cost driver.
+- Batch small adjustments into one message.
+- Ask before spawning parallel research subagents.
+- Validate inputs (size, filter risk) before LLM calls — failed calls cost full price.

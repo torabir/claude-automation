@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+
+  "//": "Project-level secret protection for Claude Code (.claude/settings.json).",
+  "//2": "Deny rules bind BOTH the Read tool and the OS sandbox's filesystem policy.",
+  "//3": "Enumerated .env variants keep .env.example readable (names only, no values).",
+  "//4": "Convention that makes this sufficient: secrets live ONLY in .env or secrets/.",
+  "//5": "For machine-wide coverage, mirror these in ~/.claude/settings.json using",
+  "//6": "absolute patterns, e.g. \"Read(//**/.env)\" instead of \"Read(**/.env)\".",
+
+  "permissions": {
+    "deny": [
+      "Read(.env)",
+      "Read(**/.env)",
+      "Read(**/.env.local)",
+      "Read(**/.env.*.local)",
+      "Read(**/.env.development)",
+      "Read(**/.env.production)",
+      "Read(**/.env.test)",
+      "Read(**/.env.staging)",
+      "Read(**/.env.backup)",
+      "Read(**/.env.bak)",
+      "Read(**/.env.old)",
+      "Read(**/secrets/**)",
+      "Read(**/*.pem)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_ed25519*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gcloud/**)",
+      "Read(~/.netrc)",
+      "Read(~/.docker/config.json)"
+    ]
+  },
+
+  "sandbox": {
+    "enabled": true
+  }
+}
