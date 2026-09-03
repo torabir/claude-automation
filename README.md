@@ -46,8 +46,7 @@ flowchart TB
 
     R --> SK
     R --> P1
-    SEC -.protects.- WS
-    SEC -.protects.- P1
+    SEC -. protects .-> P1
     P1 --> PROV
 ```
 
