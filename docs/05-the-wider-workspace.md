@@ -39,10 +39,23 @@ A skills-based marketing layer (copywriting, offer design, pricing, positioning,
 - Standing rule: no new skill enters the workspace without the same audit, and shell recipes inside imported skills never run without per-instance approval.
 - A dated `learnings.md` accumulates generalizable corrections, so feedback given once persists across sessions.
 
+## Channel-scale content research
+
+A research CLI that ingests an **entire public video channel** and produces one ranked report: every video is transcribed (platform captions when available, otherwise local `whisper.cpp` — free and offline), each transcript gets a zod-validated LLM summary, and a single synthesis call produces an overall assessment with categories and top picks, rendered to a static HTML report with no LLM in the final step.
+
+The cost discipline is the interesting part:
+
+- **Free before paid**: transcription is local; the LLM enters only after all transcripts exist, as a separate command — so a full channel scan costs nothing until you decide otherwise.
+- **Consent before spend**: the summarize step prints *how many LLM calls it is about to make* before running. The same stop-before-it-costs DNA as the media pipeline's gates, applied to API spend.
+- **Idempotent by default**: already-processed videos are skipped, so `--limit 10` today and `--all` tomorrow only pays for the delta.
+- **Token hygiene in config**: transcripts are truncated to a configured character budget before any LLM call — input validation as a cost control, not an afterthought.
+
+Built for evaluating content claims at scale (are the methods this channel teaches actually worth testing?) — a reminder that agentic tooling is as useful for *analyzing* content as for producing it.
+
 ## Job-application tooling
 
 A deliberately thin bash + Python toolchain: render a tailored application PDF from a job posting, build the full submission package, and keep a **dedupe ledger** (`check` before writing, `add` after the human has sent it). Submission is human-only — browser-automating application forms was evaluated and rejected as net-negative. The lesson worth keeping: sometimes the right amount of automation is *less*.
 
 ## Why show the breadth
 
-Any single pipeline could be a weekend demo. The point of this workspace is that the same small set of patterns — handover files, gates in code, provider interfaces, file-based state, the maturity ladder — has now carried **five different domains** (long-form video, short-form video, personal admin, outreach, marketing) without the architecture changing. That's the actual evidence that the patterns work.
+Any single pipeline could be a weekend demo. The point of this workspace is that the same small set of patterns — handover files, gates in code, provider interfaces, file-based state, the maturity ladder — has now carried **seven different systems** across unrelated domains (long-form video, short-form video, personal admin, outreach, marketing, channel research, job applications) without the architecture changing. That's the actual evidence that the patterns work.
