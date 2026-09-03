@@ -39,7 +39,7 @@ Every tool in the workspace shares one spine — the agent prepares, the human c
 | Media pipeline | Spending money (TTS), publishing | `blockers()` gate function in core; upload is manual, always |
 | Outreach/application drafting | Sending anything | Status can only become "sent" with an explicit `--confirm --via "..."` flag attesting a *human* sent it manually |
 | Job-application tooling | Submitting | Renders PDFs and cheat sheets; submission is human-only. Browser automation of form-filling was evaluated and **rejected** as net-negative |
-| Personal assistant (calendar/email) | Sending email | **Guarantee by absence**: the OAuth scope technically allows sending, so the guarantee is that *no send path exists in the codebase at all*. All writes become proposal files requiring an explicit confirm command |
+| Personal assistant (calendar/email) *(in build)* | Sending email | **Guarantee by absence**: the OAuth scope technically allows sending, so the guarantee is that *no send path exists in the codebase at all*. All writes become proposal files requiring an explicit confirm command |
 | Daily assistant | Pushing personal data | Day files live in a local-only git repo; commit yes, remote never |
 
 "Guarantee by absence" is the strongest of these: instead of trusting a flag or a prompt to prevent sending, the capability is simply not implemented. You can audit it with `grep`.

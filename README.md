@@ -2,7 +2,7 @@
 
 **A real, daily-driven automation layer built on Claude Code — agentic pipelines with human gates, a security model, and conventions that keep it maintainable.**
 
-This repo documents a system I run every day: a personal workspace where Claude Code acts as an orchestration layer across several production pipelines — most prominently an **AI content production pipeline** that turns research into publishable long-form video, with hard human approval gates at every irreversible step.
+This repo documents a system I run every day: a personal workspace where Claude Code acts as an orchestration layer across **several pipelines in different domains** — content production, transcription and captioning, personal admin, outreach, marketing — all built on the same patterns. The deepest of them is an **AI content production pipeline** that turns research into publishable long-form video, with hard human approval gates at every irreversible step.
 
 > **Used in production for a real YouTube content workflow** (calm, long-form documentary/sleep content). The videos are the output; the system around them is the point.
 
@@ -53,6 +53,20 @@ flowchart TB
 
 **Key property of every tool in this workspace: it stops before the irreversible step.** No auto-publish, no auto-send, no auto-submit, no mass operations. Steps that cost money or touch the outside world sit behind explicit approval gates enforced in code — not in prompts.
 
+## One workspace, five domains
+
+The diagram shows the deepest pipeline; the same conventions carry the whole workspace:
+
+| System | What it does | Signature pattern |
+|---|---|---|
+| **Long-form media pipeline** | Research → script → TTS narration → archival/AI visuals → Remotion assembly → QC → review | Approval gates enforced in a core `blockers()` function |
+| **Short-form content machine** | Whisper transcription + synced lyrics → LLM clip candidates → styled burned-in captions → gated shorts | Two-run gate: LLM proposes and halts; only human marks decide |
+| **Personal assistant** *(in build)* | Calendar, inbox and personal facts via proposal files | Guarantee by absence: no send path exists in the codebase |
+| **Income & outreach CLI** | Opportunity tracking, scoring, bilingual draft generation | Deterministic scoring in code; `sent` requires human attestation |
+| **Marketing engine** | Copy, offers, pricing, positioning as audited skills + per-business workspaces | File-by-file audit before any third-party skill is imported |
+
+Plus a thin job-application toolchain (render, package, dedupe ledger — human submits) and the daily assistant layer that routes across all of it. The breadth is the point: five domains, one unchanged set of patterns. Full tour in [05 — The wider workspace](docs/05-the-wider-workspace.md).
+
 ## What's documented here
 
 | Doc | What it covers |
@@ -61,6 +75,7 @@ flowchart TB
 | [02 — The media pipeline](docs/02-media-pipeline.md) | The main case: a multi-stage content pipeline with centrally enforced approval gates, a rights invariant, automated QC, and multi-channel config |
 | [03 — Safety & security](docs/03-safety-and-security.md) | Two-layer secret protection (permission deny rules + OS sandbox), the secrets convention, key rotation, and "guarantee by absence" |
 | [04 — Conventions](docs/04-conventions.md) | Session handover via `progress.md`, token economics, the anatomy of a good `CLAUDE.md`, and a maturity ladder for automation |
+| [05 — The wider workspace](docs/05-the-wider-workspace.md) | The breadth: short-form/captioning machine, personal assistant, outreach CLI, marketing engine, job tooling — same patterns, five domains |
 
 Reusable templates live in [`examples/`](examples/): a [security settings template](examples/settings.security.json), a [generic daily-brief skill](examples/skills/daily-brief/SKILL.md), and a [workspace router template](examples/CLAUDE.md.template).
 
